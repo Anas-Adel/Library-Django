@@ -1,0 +1,137 @@
+
+  #page1{
+    background-repeat: no repeat;
+    background-size:cover;
+    padding-top: 10px;
+
+  }
+  #page2{
+background-color: #e1d2b8;
+  }
+  #logo{
+
+    margin: auto;
+    display: flex;
+    padding-bottom: 10px;
+  }
+/*--------------------------------------------------------------*/
+/* Search */
+.Search {
+    padding-bottom: 0em;
+     display: flex;
+     align-items: center;
+     justify-content:center ;
+   }
+   #searchInput {
+     padding: 8px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     margin-right: 8px;
+     width: 300px;
+   }
+   #searsh_lable {
+     font-weight: bold;
+     margin-right: 8px;
+   }
+   .saerch-btn {
+     background-color: 	#9b775d;
+     color: white;
+     border: none;
+     padding: 8px;
+     border-radius: 4px;
+     cursor: pointer;
+   }
+/*--------------------------------------------------------------*/
+   /* header */
+   .main-header{
+     width: 75%;
+     margin: auto;
+     display: flex;
+     align-items: center;
+
+   }
+   #texthead{
+    backdrop-filter: blur(15px);
+    padding: 60px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #fff;
+   }
+
+   .main-header .btn{
+   background-color: 	#9b775d;
+   color: #fff;
+   }
+/*--------------------------------------------------------------*/
+   /* categories */
+   section {
+
+    width: 95%;
+    margin: auto;
+    padding-bottom: 150px;
+
+  }
+   .cat-header {
+     text-align: center;
+     padding: 20px;
+
+   }
+
+   .cat-books{
+
+   display: flex;
+   justify-content: space-around;
+   text-align: center;
+   align-items: center;
+
+   }
+   .cat-books .books img{
+   width: 100px;
+   }
+   /*--------------------------------------------------------------*/
+   /* content */
+   .content {
+     display: ruby;
+     justify-content:center ;
+
+   }
+
+   .card{
+   width: 21.25em;
+   box-shadow: 0 5px 25px rgba(1, 1, 1, 15);
+   padding: 25px;
+   margin: 15px;
+   transition: 0.7s ease;
+   background-color: rgba(255, 255, 255, 0.3);
+
+   border-top-left-radius: 70px;
+   border-bottom-left-radius: 71px;
+   transform: translate(5%,5%);
+
+
+   }
+   .card:hover{
+   transform: scale(1.1);
+   background-color: rgba(0, 0, 0, 0.3);
+
+
+   }
+   .icon{
+   font-size: 8em;
+   text-align:center;
+   }
+   .hov:hover{
+     color: rgb(124, 76, 8);
+   }
+   .info{
+   text-align: center;
+   }
+   .info h3{
+   color:rgb(77, 47, 2) ;
+   }
+   select {
+    font-size: 22px;
+    border-radius:6px;
+    margin: 7px;
+}

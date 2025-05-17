@@ -1,0 +1,32 @@
+button {
+    height: 32px; width: 100px; margin: 4px;
+}
+
+input {
+    font-size: 24px;
+    margin: 14px;
+    border-color: black;
+    border-radius:12px;
+}
+
+
+select {
+    font-size: 22px;
+    float: right;
+    margin-right: 135px;
+    border-radius:6px;
+}
+table {
+    border-radius:9px;
+    border:solid black 1px;
+}
+
+.saerch-btn {
+    background-color: 	#9b775d;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 35px;
+  }

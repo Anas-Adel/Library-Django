@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add new book</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+    <script src="{% static 'javascript/add_book.js' %}"></script>
+    <style>
+    #id_category {
+        font-size:24px;
+         margin-top:20px; margin-right:112px;
+    }
+    #id_description {font-size:24px;width:295px;height:160px;margin-right:17px;margin-top:16px;}
+    input[type="submit"]{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    color: rgb(255, 229, 197);
+    background-color: hsla(25, 25%, 49%, 0.862);
+}
+
+    input[type="submit"]:hover{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        input {font-size: 24px; margin: 14px;}
+
+        select {font-size: 20px;
+            display: inline-block;}
+    </style>
+</head>
+
+<body>
+
+      <nav class ="navbar" id="navig" style="max-width: 2000px">
+    <ul>
+        {% if user.is_authenticated%}
+      <li style="float: right;margin-right:0px;width:auto;display:inline;" id="user_name">Hello {{user.username}},  <a style="color: blue;width:0;display:inline" href="{% url 'logout' %}">logout</a></li>
+      {% endif %}
+
+        <a href="#" class="icon" onclick="myFunction()" style="font-size:10px">
+            <li style="padding:12.4px;"><i class="fa fa-bars" style="font-size:25px;"></i></li>
+        </a>
+
+      <a href ="{% url 'home-page'%}"><li>Home</li></a>
+      <a href ="{% url 'login' %}"><li>Login</li></a>
+      <a href ="{% url 'sign-up' %}"><li>Sign up</li></a>
+      <a href ="{% url 'view-books' %}"><li>View books</li></a>
+      {% if user.is_authenticated and not user.is_superuser%}
+      <a href ="{% url 'view-borowed' %}"><li>Borrowed books</li></a>
+
+      {% elif user.is_authenticated and user.is_superuser %}
+      <a href ="{% url 'admin-page' %}"><li>admin page</li></a>
+      {% endif %}
+
+
+
+    </ul>
+  </nav> <br><br>
+
+    <center>
+        {% if submited == True %}
+            Book was added succesfully
+
+        {% else %}
+
+
+        <h1>Add New Book</h1> <br>
+        <form action="" method="post" style="font-size: 28px;">
+            {% csrf_token %}
+
+
+            <label for="bookName">Book Name:</label>
+            {{form.name}}
+            <!-- <input type="text" id="bookName" name="bookName" minlength="5"> -->
+            <br>
+
+            <label for="author">Author:</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            {{form.Author}}
+            <!-- <input type="text" id="author" name="author"minlength="5"> -->
+            <br>
+
+            <label for="description" style="vertical-align:80px;">Description:</label>&nbsp&nbsp&nbsp
+            {{form.description}}
+            <!-- <textarea id="description" name="description" style="font-size: 24px; margin: 15px; height: 85px;" minlength="5"></textarea>  -->
+            <br>
+
+            <!-- &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <label>upload image of the book</label>
+            <input type="file" id="imagebook" name="imagebook" ><br>
+            <img id="imagereviwe" src="#" alt="">
+            <img src="#" alt=""> -->
+
+            <label for="category" >Category:</label> &nbsp&nbsp&nbsp&nbsp&nbsp
+            {{form.category}}
+            <!-- <input type="" id="category" name="category"minlength="5"> -->
+            <!-- <select>
+                <option value="by Name"></option>
+                <option value="by Author">by Author</option>
+                <option value="by Category">by Category</option>
+              </select> -->
+
+            <br>
+
+            <br>
+
+            <input type="submit" value="Add Book" style="width: 150px;height: 50px;font-size: 24px;"><br>
+            {{message}}
+        </form>
+        {% endif %}
+            <!-- <input type="submit" onclick="return add_book()" value="Add Book" style="width: 150px;height: 50px;font-size: 24px;"> -->
+    </center>
+</body>
+</html>

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Borrowed Books</title>
+
+        <link rel="stylesheet" href="{% static 'css/general.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'css/view_borowed.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+        <style>
+                body {font-family: Arial, Helvetica, sans-serif;}
+            button.btn{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    color: rgb(255, 229, 197);
+    background-color: hsla(25, 25%, 49%, 0.862);
+}
+
+    button.btn:hover{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+button {height: 32px; width: 65px; margin: 4px;}
+   button:hover{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+          /* input {
+    font-size: 24px;
+    margin: 14px;
+    margin-left: 1150px;
+    border-color: black;
+    border-radius:12px;
+} */
+/* .saerch-btn {
+     background-color: 	#9b775d;
+     color: white;
+     border: none;
+     padding: 8px;
+     border-radius: 4px;
+     cursor: pointer;
+     width: 35px;
+   } */
+        </style>
+    </head>
+    <body>
+
+
+          <nav class ="navbar" id="navig" style="max-width: 2000px">
+    <ul>
+        {% if user.is_authenticated%}
+      <li style="float: right;margin-right:0px;width:auto;display:inline;" id="user_name">Hello {{user.username}},  <a style="color: blue;width:0;display:inline" href="{% url 'logout' %}">logout</a></li>
+      {% endif %}
+
+        <a href="#" class="icon" onclick="myFunction()" style="font-size:10px">
+            <li style="padding:12.4px;"><i class="fa fa-bars" style="font-size:25px;"></i></li>
+        </a>
+
+      <a href ="{% url 'home-page'%}"><li>Home</li></a>
+      <a href ="{% url 'login' %}"><li>Login</li></a>
+      <a href ="{% url 'sign-up' %}"><li>Sign up</li></a>
+      <a href ="{% url 'view-books' %}"><li>View books</li></a>
+      {% if user.is_authenticated and not user.is_superuser%}
+      <a href ="{% url 'view-borowed' %}"><li>Borrowed books</li></a>
+
+      {% elif user.is_authenticated and user.is_superuser %}
+      <a href ="{% url 'admin-page' %}"><li>admin page</li></a>
+      {% endif %}
+
+
+
+    </ul>
+  </nav> <br>
+
+        <center><h1>Your Borrowed Books</h1></center>
+
+        <form method="post" style="float:right;margin-right:10px;">
+          {% csrf_token %}
+        <input type="text" name="search_value" id="searchInput" placeholder="Search">
+        <button type="submit" class="saerch-btn"><i class="fa-brands fa-searchengin"></i></button><br>
+        <select name="search_by">
+          <option value="by Name">by Name</option>
+          <option value="by Author">by Author</option>
+          <option value="by Category">by Category</option>
+        </select>
+      </form>
+      <br>
+
+        <!-- <input type="search" placeholder=" Search">
+        <button onclick="search()" class="saerch-btn"><i class="fa-brands fa-searchengin"></i></button>
+        <select>
+            <option value="by Name">by Name</option>
+            <option value="by Author">by Author</option>
+            <option value="by Category">by Category</option>
+          </select> -->
+        <br><br>
+        <br><br><br>
+
+        <center>
+        <table bgcolor="black" style="font-size: 26px;">
+            <tr bgcolor=#9B775D >
+                <!--<th width="275">Book ID</th>-->
+                <th width="275">Book Name</th>
+                <th width="275">Author</th>
+                <th width="275">Category</th>
+                <th width="225">View details</th>
+            </tr>
+            {% for book in books %}
+                {% if book.borrowed_by == user %}
+                <!--<th>{{book.id}}</th>-->
+                <tr bgcolor="#e1d2b8" height="120px"><th>{{book.name}}</th><th>{{book.Author}}</th><th>{{book.category}}</th><th><a href = "{% url 'book-page' book_id=book.id %}"><button class="btn">view</button></a></th></tr>
+                {%endif%}
+            {% endfor %}
+
+
+        </table>
+    </center>
+    </body>
+</html>

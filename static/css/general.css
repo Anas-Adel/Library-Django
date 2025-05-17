@@ -1,0 +1,27 @@
+body {
+    padding: 0;
+    margin:0;
+    background-color: #e1d2b8;
+    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*button{*/
+/*    padding: 0.7em;*/
+/*    border: 3px solid hsl(38, 20%, 20%);*/
+/*    border-radius: 3em;*/
+/*    margin-top: 0.5em;*/
+/*    cursor: pointer;*/
+/*    color: rgb(255, 229, 197);*/
+/*    background-color: hsla(25, 25%, 49%, 0.862);*/
+/*}*/
+
+/*button:hover{*/
+/*    padding: 0.7em;*/
+/*    border: 3px solid hsl(38, 20%, 20%);*/
+/*    border-radius: 3em;*/
+/*    margin-top: 0.5em;*/
+/*    cursor: pointer;*/
+/*    background-color: hsla(33, 100%, 89%, 0.175);*/
+/*    color: hsl(25, 25%, 49%);*/
+/*}*/

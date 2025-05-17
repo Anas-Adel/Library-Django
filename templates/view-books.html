@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Available Books</title>
+        <script type="text/javascript" src="{% static 'javascript/BooksVeiw.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/general.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="{% static 'css/BooksView.css' %}">
+        <style>
+        a > div{
+            color:black;
+   display:inline-table;
+   border-style:solid;
+   width:210px;
+   height: 320px;
+   margin-top: 30px;
+   margin-left: 30px;
+   margin-bottom: 30px;
+   margin-right: 20px;
+   padding: 0px 10px 5px 10px;
+   background-color: #86634a;
+}
+a > div:hover{
+    cursor: pointer;
+    box-shadow: 2px 2px 10px #3e3e3e ;
+    text-shadow: #3e3e3e;
+}
+
+a > div{
+    background-color: rgb(115, 142, 112);
+}
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        /*button {height: 32px; margin: 4px;}*/
+            button:hover {
+                    border: 3px solid hsl(38, 20%, 20%);
+                    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+        </style>
+    </head>
+
+
+
+    <body>
+          <nav class ="navbar" id="navig" style="max-width: 2000px">
+    <ul>
+        {% if user.is_authenticated%}
+      <li style="float: right;margin-right:0px;width:auto;display:inline;" id="user_name">Hello {{user.username}},  <a style="color: blue;width:0;display:inline" href="{% url 'logout' %}">logout</a></li>
+      {% endif %}
+
+        <a href="#" class="icon" onclick="myFunction()" style="font-size:10px">
+            <li style="padding:12.4px;"><i class="fa fa-bars" style="font-size:25px;"></i></li>
+        </a>
+
+      <a href ="{% url 'home-page'%}"><li>Home</li></a>
+      <a href ="{% url 'login' %}"><li>Login</li></a>
+      <a href ="{% url 'sign-up' %}"><li>Sign up</li></a>
+      <a href ="{% url 'view-books' %}"><li>View books</li></a>
+      {% if user.is_authenticated and not user.is_superuser%}
+      <a href ="{% url 'view-borowed' %}"><li>Borrowed books</li></a>
+
+      {% elif user.is_authenticated and user.is_superuser %}
+      <a href ="{% url 'admin-page' %}"><li>admin page</li></a>
+      {% endif %}
+
+
+
+    </ul>
+  </nav>
+          <br>
+
+          <center><h1>Available Books</h1></center>
+
+ <main>
+    <br>
+    <form method="post" style="float:right;margin-right:10px;">
+        {% csrf_token %}
+      <input type="text" name="search_value" id="searchInput" placeholder="Search">
+      <button type="submit" class="saerch-btn"><i class="fa-brands fa-searchengin"></i></button><br>
+      <select name="search_by">
+        <option value="by Name">by Name</option>
+        <option value="by Author">by Author</option>
+        <option value="by Category">by Category</option>
+      </select>
+    </form>
+    <!-- <input type="search" placeholder=" Search">
+    <a href="{% url 'search' %}"><button class="saerch-btn" id="search-btn"><i class="fa-brands fa-searchengin"></i></button></a>
+    <select>
+        <option value="by Name">by Name</option>
+        <option value="by Author">by Author</option>
+        <option value="by Category">by Category</option>
+      </select>  -->
+      <br>
+
+
+
+
+<center>
+<div class="booksCont">
+    {% for catg in categories %}
+    <h2><span style="font-size:45px">{{catg.name}}</span></h2>
+    <div class="personalGrowth">
+        {% for book in books %}
+            {% if book.category.name == catg.name %}
+            <a href="{% url 'book-page' book_id=book.id %}" style="text-decoration:none">
+            <div style="background-color: #9b775d;">
+                <br>
+            book ID: {{book.id}} <br><br>
+            book Name: {{book.name}} <br><br>
+            book Author: {{book.Author}}<br><br>
+            book Category: {{book.category}}<br><br>
+            Availabilty: {%if book.availabilty %} Available {% else %} Not Available {%endif%}<br><br>
+            borrowed by: {{book.borrowed_by}} <br><br>
+            <!--<a href="{% url 'book-page' book_id=book.id %}"><button>view</button></a>-->
+            </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <!-- <h2><span style="font-size:45px"><i>F</i></span>inance</h2>
+    <div class="financ"></div>
+    <h2><span style="font-size:45px"><i>R</i></span>omance</h2>
+    <div class="Romance"></div>
+    <h2><span style="font-size:45px"><i>K</i></span>ids</h2>
+    <div class="Kids"></div> -->
+</div>
+</center>
+
+<!-- <form id="adminForm">
+    <template>
+    <input name="t" type="text" placeholder="Enter Book Tiltle" >
+    <input name="a" type="text" placeholder="Enter Book's Author">
+    <input name="i" type="text" placeholder="Enter Book's ID">
+    <input name="g" type="text" placeholder="Enter Book's catagory">
+    <button type="submit" id="bookButton">Add Book</button> <br>
+    <input name="catagory" type="text" placeholder="Enter Catagoty">
+    <button type="submit" id="catagoryButton">Add Catagoty</button>
+</template>
+</form> -->
+
+</main>
+    </body>
+</html>

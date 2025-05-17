@@ -1,0 +1,35 @@
+body{
+    text-align: center;
+}
+
+h1{
+    color: #894e1d;
+    margin-top: 0;
+    border-bottom: 4px outset hsl(38, 20%, 16%);
+    border-radius: 0.1em;
+    padding-left: 7em;
+    padding-right: 7em;
+    padding-top: 0.3em;
+    padding-bottom: 0.2em;
+    display: inline-block;
+}
+
+button{
+    padding: 0.7em;
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    margin-top: 0.5em;
+    cursor: pointer;
+    color: rgb(255, 229, 197);
+    background-color: hsla(25, 25%, 49%, 0.862);
+}
+
+button:hover{
+    padding: 0.7em;
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    margin-top: 0.5em;
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}

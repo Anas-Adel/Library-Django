@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<meta charset="UTF-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="preconnect" href="https://fonts.googleapis.com">-->
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+    <!--<link href="https://fonts.googleapis.com/css2?family=Sedan:ital@0;1&display=swap" rel="stylesheet">-->
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main page.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'javascript/BooksVeiw.js' %}"></script>
+
+    <title>Home Page</title>
+    <style>
+    div.cat-books div {
+        margin: 10px;
+    }
+    nav a.icon {
+        display:none;
+        float:left;
+        }
+    nav a.icon li {
+        padding-left:5px;
+        padding-right:5px;
+        }
+
+    @media screen and (max-width: 750px) {
+        div.main-header img {
+            display:none;
+        }
+        div.main-header {
+            display:flow;
+        }
+
+        nav a:not(:first-child) {
+            display:none;
+        }
+                nav a.icon {
+            display:block;
+        }
+
+        nav.navbar.responsive {position: relative;display:inline; }
+        nav.navbar.responsive ul {background-color:#312b21;}
+        nav.navbar.responsive a {
+
+        float: none;
+        display: block;
+        text-align: left;
+        }
+        nav.navbar.responsive a:hover {
+        background-color:#e1d2b8;
+        }
+        nav.navbar.responsive a.icon:hover {
+        background-color:#312b21;
+        }
+    }
+
+        button.btn{
+        font-size:22px;
+        padding: 15px;
+        border: 3px solid hsl(38, 20%, 20%);
+        border-radius: 3em;
+        /*margin-top: 0.5em;*/
+        cursor: pointer;
+        color: rgb(255, 229, 197);
+        background-color: hsla(25, 25%, 49%, 0.862);
+        }
+
+    button.btn:hover{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+            button.saerch-btn {border: 3px solid hsl(38, 20%, 20%);}
+            button:hover {
+                    border: 3px solid hsl(38, 20%, 20%);
+                    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+            body {font-family: Arial, Helvetica, sans-serif; }
+
+        div.cat-books {
+            display:ruby;
+        }
+
+    </style>
+        <script>
+function myFunction() {
+  var x = document.getElementById("navig");
+  if (x.className === "navbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "navbar";
+  }
+}
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <nav class ="navbar" id="navig" style="max-width: 2000px">
+    <ul>
+        {% if user.is_authenticated%}
+      <li style="float: right;margin-right:0px;width:auto;display:inline;" id="user_name">Hello {{user.username}},  <a style="color: blue;width:0;display:inline" href="{% url 'logout' %}">logout</a></li>
+      {% endif %}
+
+        <a href="#" class="icon" onclick="myFunction()" style="font-size:10px">
+            <li style="padding:12.4px;"><i class="fa fa-bars" style="font-size:25px;"></i></li>
+        </a>
+
+      <a href ="{% url 'home-page'%}"><li>Home</li></a>
+      <a href ="{% url 'login' %}"><li>Login</li></a>
+      <a href ="{% url 'sign-up' %}"><li>Sign up</li></a>
+      <a href ="{% url 'view-books' %}"><li>View books</li></a>
+      {% if user.is_authenticated and not user.is_superuser%}
+      <a href ="{% url 'view-borowed' %}"><li>Borrowed books</li></a>
+
+      {% elif user.is_authenticated and user.is_superuser %}
+      <a href ="{% url 'admin-page' %}"><li>admin page</li></a>
+      {% endif %}
+
+
+
+    </ul>
+  </nav>
+  <center>
+<div id="page1" style="background: url(static/images/4.jpeg)">
+
+    <h1 style="color:#312b21;font-size:40px;">Online Library</h1>
+
+    <img style="width: 100px;" id="logo" src="{% static 'images/5.png' %}" alt="">
+
+ <div class="Search ">
+  <form method="post">
+    {% csrf_token %}
+  <input type="text" name="search_value" id="searchInput" placeholder="Search" style="max-width:200px">
+  <!--<label id="searsh_lable" for="searchInput">Search for a book</label>-->
+  <button type="submit" class="saerch-btn"><i class="fa-brands fa-searchengin"></i></button><br>
+  <select name="search_by">
+    <option value="by Name">by Name</option>
+    <option value="by Author">by Author</option>
+    <option value="by Category">by Category</option>
+  </select>
+</form>
+ </div>
+
+
+
+ <div class="main-header" style="margin:20px;">
+     {% if not user.is_authenticated%}
+    <div id="texthead" style="padding:30px">
+      <h2 >Sign up as a regular user to borrow books</h2><br><hr><br>
+      <h2 >Sign up as an Admin to Manage the books</h2><br>
+      <center><a href="{% url 'sign-up' %}"  ><button class="btn">Sign up</button></a></center>
+    </div>
+    {% elif user.is_superuser %}
+        <div id="texthead" style="padding:30px">
+      <br><br><h1>Manage Books form admin page</h1><br><br>
+      <center><a href="{% url 'admin-page' %}"  ><button class="btn">Admin Page</button></a></center><br>
+    </div>
+    {% else %}
+        <div id="texthead" style="padding:30px">
+      <br><br><h1>Browse and borrow books</h1><br><br>
+      <center><a href="{% url 'view-books' %}"  ><button class="btn">View Books</button></a></center><br>
+    </div>
+    {% endif %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <img style="max-width: 500px;" src="{% static 'images/1.png' %}" id="books898">
+</div>
+
+</div>
+
+
+<div id="page2">
+
+<!--categories section-->
+<section class="categories">
+  <div class="cat-row">
+
+    <div class="cat-header">
+      <h2>Books Categories</h2>
+    </div>
+
+    <div class="cat-books">
+
+      {% for i in categories %}
+      <div class="books">
+        <div>
+          <img src="{% static 'images/3.png' %}" alt="">
+        </div>
+        <h4>{{i.name}}</h4>
+      </div>
+      {% endfor %}
+
+
+    </div>
+
+  </div>
+</section>
+
+
+ <!--content section-->
+
+<section id="secation-1">
+<div class="content">
+  <div class="card">
+    <div class="icon">
+
+     <a class="hov" href="{% url 'view-books' %}"><i class="fa-solid fa-book"></i></a>
+
+    </div>
+    <div class="info">
+      <h3>Available Books</h3>
+      <p>Click to see available books</p>
+
+    </div>
+
+  </div>
+  {% if user.is_authenticated and not user.is_superuser%}
+  <div class="card">
+    <div class="icon">
+
+     <a class="hov" href="{% url 'view-borowed' %}"><i class="fa-solid fa-book-open-reader"></i></a>
+
+    </div>
+    <div class="info">
+      <h3>Borrowed books</h3>
+      <p>Click to see Borrowed books</p>
+
+    </div>
+
+  </div>
+  {% endif %}
+
+</div>
+
+</section>
+</div>
+</center>
+</body>
+</html>
+
+

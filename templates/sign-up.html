@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign Up</title>
+
+        <link rel="stylesheet" href="{% static 'css/general.css'%}">
+        <script src="{% static 'javascript/SignUp_login.js' %}"></script>
+        <style>
+                body {font-family: Arial, Helvetica, sans-serif;}
+
+            input[type=checkbox] {
+                width: 20px;
+                height: 20px;
+            }
+                input[type="submit"]{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    color: rgb(255, 229, 197);
+    background-color: hsla(25, 25%, 49%, 0.862);
+}
+
+    input[type="submit"]:hover{
+    /*padding: 0.7em;*/
+    border: 3px solid hsl(38, 20%, 20%);
+    border-radius: 3em;
+    /*margin-top: 0.5em;*/
+    cursor: pointer;
+    background-color: hsla(33, 100%, 89%, 0.175);
+    color: hsl(25, 25%, 49%);
+}
+            input {
+                width: 300px;
+                height: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <center>
+            <div style="background: #312b21;">
+            <br><br><br>
+            <h1 style="font-size: 40px; color :white;">Sign Up</h1>
+            <br><br><br>
+            </div>
+            <br>
+            <form method = "post">
+                {% csrf_token %}
+
+                <!-- {{form}} -->
+
+
+                <p style="font-size:28px">
+                    <label>Username :</label> &nbsp&nbsp
+                {{form.username}}
+
+                </p>
+                <p style="font-size:28px">
+                    <label>Password :</label> &nbsp&nbsp&nbsp
+                {{form.password1}}
+
+                </p>
+                <p style="font-size:28px; margin-right:66px">
+                    <label>Confirm Password:</label>
+                {{form.password2}}
+
+                </p>
+                <p style="font-size:28px"> &nbsp
+                    <label style="margin-right:28px">Email :</label>    &nbsp&nbsp&nbsp&nbsp
+                {{form.email}}
+
+                </p>
+
+                 <p style="font-size:28px">
+                    <label>Admin :</label>
+                    {{form.is_superuser}}
+
+                 </p>
+
+                <br>
+<!--style="margin-left:500px;margin-right:500px;"-->
+<center>
+
+                {%for error in error_lst%}
+                <p style="margin-bottom:20px;">{{error}}</p>
+                {%endfor%}
+
+</center>
+                <br>
+
+                <input type="submit" style="width: 150px;height: 50px;font-size: 24px;" value="Sign Up">
+                <!-- <input onclick="return signUp()" type="submit" style="width: 150px;height: 50px;font-size: 24px;" value="Sign Up" > -->
+                </table>
+
+                <p style="font-size: 20px;">Already have account? <a href="{% url 'login' %}">Login</a></p>
+            </form>
+        </center>
+    </body>
+</html>

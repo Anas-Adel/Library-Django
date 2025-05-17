@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>book page</title>
+        <link rel="stylesheet" href="{% static 'css/general.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
+        <link rel="stylesheet" href="{% static 'css/book page.css' %}">
+        <script src="{% static 'javascript/borrow.js' %}"></script>
+        <style>
+            body {    font-family: Arial, Helvetica, sans-serif;}
+        </style>
+
+        <script>
+        function brow() {
+            var x = document.getElementById("borowed").innerHTML;
+            if (x == "None") {
+                window.location.replace("{% url 'borrow-book' book_id=book.id %}");
+                return false;
+            }
+            else {
+                alert("sorry the book is not available\n"+x+" is borrowing it")
+            }
+
+        }
+        </script>
+    </head>
+
+
+<body>
+
+      <nav class ="navbar" id="navig" style="max-width: 2000px">
+    <ul>
+        {% if user.is_authenticated%}
+      <li style="float: right;margin-right:0px;width:auto;display:inline;" id="user_name">Hello {{user.username}},  <a style="color: blue;width:0;display:inline" href="{% url 'logout' %}">logout</a></li>
+      {% endif %}
+
+        <a href="#" class="icon" onclick="" style="font-size:10px">
+            <li style="padding:12.4px;"><i class="fa fa-bars" style="font-size:25px;"></i></li>
+        </a>
+
+      <a href ="{% url 'home-page'%}"><li>Home</li></a>
+      <a href ="{% url 'login' %}"><li>Login</li></a>
+      <a href ="{% url 'sign-up' %}"><li>Sign up</li></a>
+      <a href ="{% url 'view-books' %}"><li>View books</li></a>
+      {% if user.is_authenticated and not user.is_superuser%}
+      <a href ="{% url 'view-borowed' %}"><li>Borrowed books</li></a>
+
+      {% elif user.is_authenticated and user.is_superuser %}
+      <a href ="{% url 'admin-page' %}"><li>admin page</li></a>
+      {% endif %}
+
+
+
+    </ul>
+  </nav> <br>
+    <br>
+<h1>Book Details</h1>
+<br>
+<!-- <img src="{% static 'images/r3.jpg' %}" style="width: 200px; margin: 30px;display:inline-block;"> -->
+<br>
+{% if user.is_authenticated and not user.is_superuser and  book.borrowed_by != user%}
+<!--<a href="{% url 'borrow-book' book_id=book.id %}"><button> Borrow </button><br><br></a>-->
+<a href="#" onclick="brow()"><button> Borrow </button><br><br></a>
+{% elif user.is_authenticated and not user.is_superuser and book.borrowed_by == user%}
+<a href="{% url 'return-book' book_id=book.id %}"><button> Return </button><br><br></a>
+{% endif %}
+<div style="font-size: large;">
+<b style="color: hsl(27, 65%, 25%);">Book Name:</b>{{book.name}}<br><br>
+<b style="color: hsl(27, 65%, 25%);">Book ID:</b> {{book.id}} <br><br>
+<b style="color: hsl(27, 65%, 25%);">Author:</b> {{book.Author}} <br><br>
+<b style="color: hsl(27, 65%, 25%);">borrowed by :</b> {{book.borrowed_by}} <br><br>
+<b style="color: hsl(27, 65%, 25%);">Category:</b> {{book.category}} <br><br>
+<b style="color: hsl(27, 65%, 25%);">Availablilty:</b> {%if book.availabilty%} Available {% else %} not Available{% endif %}<br><br>
+<b style="color: hsl(27, 65%, 25%);">Description:</b> {{book.description}}
+
+
+
+<h3 style="color: hsl(27, 65%, 25%);">Edition Notes:</h3>
+
+<pre>Title from web page. Compact discs.
+ Read by Caitlin Kelly.
+</pre>
+</div>
+
+    <div style="display:none;"id="borowed">{{book.borrowed_by}}</div>
+</body>
+</html>
