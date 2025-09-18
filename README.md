@@ -16,4 +16,5 @@ This project gave me hands-on experience across the full development lifecycle �
 
 🔗 Links:
 🌐 Visit Live Website: anas898.pythonanywhere.com
-🎥 Watch demo video on LinkedIn: Demo-Video
+🎥 Watch demo video on LinkedIn: linkedin.com/posts/anasadel_python-django-backend-activity-7303527755055263745-9oHi/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADY7iXsB5j5eELj3_0-Y2QzP82aKqg8JJVE
+
